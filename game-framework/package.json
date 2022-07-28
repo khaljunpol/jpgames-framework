@@ -1,0 +1,21 @@
+{
+  "name": "jpgames-game-framework",
+  "version": "0.0.1",
+  "description": "JP local game framework",
+  "main": "./src/index.ts",
+  "scripts": {
+    "clean": "rimraf lib"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/.git"
+  },
+  "keywords": [
+    "node"
+  ],
+  "author": "Paul Ranico",
+  "license": "UNLICENSED",
+  "devDependencies": {
+    "typescript": "^4.7.4"
+  }
+}

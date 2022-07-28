@@ -1,0 +1,23 @@
+{
+  "name": "jpgames-game-implementation-pixi",
+  "version": "0.0.1",
+  "description": "JP local game framework implementation",
+  "main": "./src/index.ts",
+  "scripts": {
+    "clean": "rimraf node_modules"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/.git"
+  },
+  "keywords": [
+    "node"
+  ],
+  "author": "Paul Ranico",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "jpgames-game-framework": "file:../game-framework",
+    "pixi.js": "^6.5.1",
+    "xstate": "^4.32.1"
+  }
+}
