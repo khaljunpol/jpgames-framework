@@ -32,15 +32,14 @@ export class View extends Container implements IView, IResizeable {
         this.addCustomChild(controller.view);
     }
 
-    public onResize(): void {
-    }
-
     protected addCustomChild(view: IView) {
         let pixiDisplayObject = view as View;
 
-        if (this.children.includes(pixiDisplayObject)) {
+        if (!this.children.includes(pixiDisplayObject)) {
             super.addChild(pixiDisplayObject);
         }
     }
 
+    public onResize(): void {
+    }
 }

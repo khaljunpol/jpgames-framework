@@ -4,7 +4,6 @@ export interface IGame{
 
     name: string;
     application: any;
-
     controller: IGameController;
 
     init();

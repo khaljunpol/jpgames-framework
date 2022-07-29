@@ -18,6 +18,7 @@
   "dependencies": {
     "jpgames-game-framework": "file:../game-framework",
     "pixi.js": "^6.5.1",
+    "rxjs": "^7.5.6",
     "xstate": "^4.32.1"
   }
 }

@@ -1,3 +1,4 @@
+import { IController } from "../Core/IController";
 
-export interface IComponentController {   
+export interface IComponentController extends IController {   
 }

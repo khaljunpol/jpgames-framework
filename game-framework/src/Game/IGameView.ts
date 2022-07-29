@@ -1,2 +1,3 @@
+import { IView } from "../Core/IView";
 
-export interface IGameView{}
+export interface IGameView extends IView{}

@@ -1,2 +1,3 @@
+import { IView } from "../Core/IView";
 
-export interface IComponentView { }
+export interface IComponentView extends IView { }

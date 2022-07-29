@@ -1,9 +1,5 @@
+import { IController } from "../Core/IController";
 
-export interface IGameController {
-  /**
-   * Init the game, load files used and set game specific configurations for the store.
-   *
-   * @param locale
-   */
-  Init(): void;
+export interface IGameController extends IController {
+  init(): void;
 }

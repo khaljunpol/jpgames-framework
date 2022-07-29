@@ -1,2 +1,5 @@
+import { IModel } from "../Core/IModel";
 
-export interface IGameModel {}
+export interface IGameModel extends IModel {
+    
+}

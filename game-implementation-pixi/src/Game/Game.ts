@@ -1,42 +1,17 @@
 import { IGame, IGameController } from "jpgames-game-framework";
 import { IResizeable } from "jpgames-game-framework/src/Others/IResizeable";
-import { Application } from "pixi.js";
+import { Application, Container, DisplayObject, Loader } from "pixi.js";
+import { View } from "../Core/View";
 import { GameController } from "./GameController";
-import { createMachine, assign } from "xstate";
 
 
-export enum GAME_PHASES {
-    START = <any>"START",
-    PLAY = <any>"PLAY",
-    END = <any>"END"
-}
-
-export interface GameContext {
-    name: string,
-    state: GAME_PHASES,
-    prevState: GAME_PHASES
-}
-
-const start = assign({
-    state: GAME_PHASES.PLAY,
-    prevState: GAME_PHASES.START,
-});
-
-const play = assign({
-    state: GAME_PHASES.END,
-    prevState: GAME_PHASES.PLAY,
-});
-
-const end = assign({
-    state: GAME_PHASES.END,
-    prevState: GAME_PHASES.START,
-});
 
 export class Game implements IGame, IResizeable {
 
-    private _name: string;
-    private _application: Application;
-    private _controller: IGameController;
+    protected _name: string;
+    protected _application: Application;
+    protected _controller: IGameController;
+    protected _loader: Loader;
 
     public get name(): string {
         return this._name;
@@ -51,79 +26,48 @@ export class Game implements IGame, IResizeable {
     }
 
 
-    private _stateMachine: any;
-
-    public get stateMachine() {
-        return this._stateMachine;
-    }
-
     constructor(name: string) {
-
-        this._stateMachine = createMachine({
-            id: "TEST",
-            initial: GAME_PHASES.START,
-            context: {} as {
-                state: GAME_PHASES;
-                prevState: GAME_PHASES;
-            },
-            states: {
-                [GAME_PHASES.START]: {
-                    on: {
-                        STARTED: {
-                            target: GAME_PHASES.PLAY,
-                            actions: "start",
-                        },
-                    },
-                },
-                [GAME_PHASES.PLAY]: {
-                    on: {
-                        PLAYED: {
-                            target: GAME_PHASES.END,
-                            actions: "play",
-                        },
-                    },
-                },
-                [GAME_PHASES.END]: {
-                    on: {
-                        ENDED: {
-                            target: GAME_PHASES.START,
-                            actions: "end",
-                        },
-                    },
-                },
-            },
-            actions: {
-                start,
-                play,
-                end,
-            },
-        });
-
         this._name = name;
 
-        this._controller = this.createController(name);
+        this._loader = new Loader();
+
+        this.loadAssets();
+
+    }
+
+    protected loadAssets() {
+
+    }
+
+    protected onLoadComplete() {
+        console.log("load complete");
+        this.init();
+    }
+
+    public init() {
+        this._controller = this.createController(this._name);
 
         this._application = this.createApplication();
         this.application.view.style.position = "fixed";
 
         document.getElementById("game-container").appendChild(this.application.view);
-        window.addEventListener('resize', this.onResize);
-    }
 
-    
+        window.onresize = () => this.onResize();
 
-    public init() {
-
+        let pixiDisplayObject = (this._controller.view as View);
+        this._application.stage.addChild(pixiDisplayObject);
     }
 
     protected createApplication(): Application {
-        return new Application();
+        return new Application({
+            width: window.innerWidth,
+            height: window.innerHeight
+        });
     }
 
     protected createController(name: string): IGameController {
         return new GameController(name);
     }
-
     public onResize(): void {
         // Resize the renderer
         this._application.renderer.resize(window.innerWidth, window.innerHeight);
