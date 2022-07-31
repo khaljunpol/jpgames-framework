@@ -40,11 +40,11 @@ export class Model implements IModel {
     }
 
     public sendAction(action: string) {
-        console.warn("extend this class");
+        // console.warn("extend this class");
     }
 
     public sendActions(action: string[]) {
-        console.warn("extend this class");
+        // console.warn("extend this class");
     }
 
     protected onUpdateState(state: any) {

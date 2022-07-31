@@ -26,7 +26,7 @@ export class ComponentModel extends Model implements IComponentModel {
         return this._stateService
     }
 
-    public get stateSchema(): any{
+    public get stateSchema(): any {
         return this._stateSchema;
     }
 
@@ -39,9 +39,11 @@ export class ComponentModel extends Model implements IComponentModel {
 
         this._stateMachine = this.createStateMachine(name);
 
-        this._stateService = interpret(this._stateMachine);
+        if (this._stateMachine) {
+            this._stateService = interpret(this._stateMachine);
 
-        this._stateService.start();
+            this._stateService.start();
+        }
     }
 
     public sendAction(action: string): void {
@@ -55,7 +57,7 @@ export class ComponentModel extends Model implements IComponentModel {
     }
 
     protected createStateSchema(): any {
-        return{
+        return {
 
         }
     }

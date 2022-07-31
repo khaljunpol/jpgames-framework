@@ -8,6 +8,8 @@ export class ComponentView extends View implements IComponentView {
     constructor(name: string) {
         super(name);
 
+        this.visible = false;
+
         this._isShown = false;
     }
 
@@ -19,7 +21,6 @@ export class ComponentView extends View implements IComponentView {
                 this._isShown = true;
                 resolve();
             }
-            console.log("SHOW");
         });
     }
 
@@ -30,7 +31,6 @@ export class ComponentView extends View implements IComponentView {
                 this._isShown = false;
                 resolve();
             }
-            console.log("HIDE");
         }); 
     }
 }

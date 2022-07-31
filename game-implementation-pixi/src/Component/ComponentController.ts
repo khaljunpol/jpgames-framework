@@ -22,6 +22,11 @@ export class ComponentController extends Controller implements IComponentControl
     }
 
     public init(): void {
+
+    }
+
+    public onUpdateGameState(state: any): void
+    {
         
     }
 }

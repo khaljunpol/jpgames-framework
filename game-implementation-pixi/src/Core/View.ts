@@ -59,8 +59,8 @@ export class View extends Container implements IView {
     public onResize(): void {
     }
 
-    protected createSubject():Subject<string>{
-        return new Subject<string>()
+    protected createSubject():Subject<any>{
+        return new Subject<any>()
     }
     
 }
