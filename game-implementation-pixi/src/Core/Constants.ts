@@ -1,6 +1,6 @@
 
 export enum GAME_LOOP_STATES {
-    NONE = "NONE",
+    INITIALIZE = "INITIALIZE",
     START = "START",
     PLAY = "PLAY",
     END = "END"
@@ -8,6 +8,6 @@ export enum GAME_LOOP_STATES {
 
 export enum STATE_ACTIONS {
     SETUP = "SETUP",
-    DISPLAY = "DISPLAY",
+    PROCESS = "PROCESS",
     COMPLETE = "COMPLETE"
 }

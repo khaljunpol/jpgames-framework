@@ -1,12 +1,11 @@
-import { IGame, IGameController } from "jpgames-game-framework";
-import { IResizeable } from "jpgames-game-framework/src/Others/IResizeable";
-import { Application, Container, DisplayObject, Loader } from "pixi.js";
+import { IComponentController, IGame, IGameController } from "jpgames-game-framework";
+import { Application, Loader } from "pixi.js";
 import { View } from "../Core/View";
 import { GameController } from "./GameController";
 
 
 
-export class Game implements IGame, IResizeable {
+export class Game implements IGame {
 
     protected _name: string;
     protected _application: Application;
@@ -34,13 +33,11 @@ export class Game implements IGame, IResizeable {
         this.loadAssets();
 
     }
-
     protected loadAssets() {
 
     }
 
     protected onLoadComplete() {
-        console.log("load complete");
         this.init();
     }
 
@@ -50,6 +47,8 @@ export class Game implements IGame, IResizeable {
         this._application = this.createApplication();
         this.application.view.style.position = "fixed";
 
+        this._controller.init();
+
         document.getElementById("game-container").appendChild(this.application.view);
 
         window.onresize = () => this.onResize();
@@ -57,6 +56,19 @@ export class Game implements IGame, IResizeable {
         let pixiDisplayObject = (this._controller.view as View);
         this._application.stage.addChild(pixiDisplayObject);
     }
+
+
+    public addComponent(component: IComponentController) {
+        this._controller.view.addComponent(component);
+    }
+    public addComponents(components: IComponentController[]) {
+        components.forEach(component => {
+            this.addComponent(component);
+        });
+    }
+
+
+
 
     protected createApplication(): Application {
         return new Application({
@@ -68,8 +80,12 @@ export class Game implements IGame, IResizeable {
     protected createController(name: string): IGameController {
         return new GameController(name);
     }
+
     public onResize(): void {
+
         // Resize the renderer
         this._application.renderer.resize(window.innerWidth, window.innerHeight);
+        // Call other components to resize as well
+        this._controller.view.onResize();
     }
 }

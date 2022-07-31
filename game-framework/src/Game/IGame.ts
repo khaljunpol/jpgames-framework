@@ -1,3 +1,4 @@
+import { IComponentController } from "../Component/IComponentController";
 import { IGameController } from "./IGameController";
 
 export interface IGame{
@@ -7,4 +8,6 @@ export interface IGame{
     controller: IGameController;
 
     init();
+    addComponent(component: IComponentController);
+    addComponents(components: IComponentController[]);
 }

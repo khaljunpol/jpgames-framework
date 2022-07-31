@@ -1,19 +1,31 @@
 import { IController, IModel, IView } from "jpgames-game-framework";
-import { IResizeable } from "jpgames-game-framework/src/Others/IResizeable";
 import { Container } from "pixi.js";
+import { Subject } from "rxjs";
 
 
-export class View extends Container implements IView, IResizeable {
+export class View extends Container implements IView {
 
-    private _components: IController[];
+    protected _components: IController[];
+    protected _views: IView[];
+    protected _subject: any;
+
+    public get subject(): any{
+        return this._subject
+    }
 
     constructor(name: string) {
         super();
 
         this._components = [];
+        this._views = []
 
         // Name of the Container
         this.name = name;
+
+        this._subject = this.createSubject();
+
+        // Resize after initializing the class
+        this.onResize();
     }
 
     public getComponentByName(name: string): IController {
@@ -32,8 +44,12 @@ export class View extends Container implements IView, IResizeable {
         this.addCustomChild(controller.view);
     }
 
-    protected addCustomChild(view: IView) {
+    public addCustomChild(view: IView) {
         let pixiDisplayObject = view as View;
+
+        if (!this._views.includes(view)) {
+            this._views.push(view);
+        }
 
         if (!this.children.includes(pixiDisplayObject)) {
             super.addChild(pixiDisplayObject);
@@ -42,4 +58,9 @@ export class View extends Container implements IView, IResizeable {
 
     public onResize(): void {
     }
+
+    protected createSubject():Subject<string>{
+        return new Subject<string>()
+    }
+    
 }
