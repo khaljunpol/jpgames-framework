@@ -29,8 +29,6 @@ export class GameModel extends Model implements IGameModel {
         
         this._stateMachines = {};
         this._stateSchemas = {};
-
-        console.log(this);
     }
 
     public initGameLoop(): void {
