@@ -4,7 +4,7 @@
   "description": "JP local game framework implementation",
   "main": "./src/index.ts",
   "scripts": {
-    "clean": "rimraf node_modules"
+    "clean": "rimraf lib && rimraf node_modules"
   },
   "repository": {
     "type": "git",
